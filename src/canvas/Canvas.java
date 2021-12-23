@@ -41,9 +41,10 @@ public class Canvas {
 				drawArea.line();
 			} else if (e.getSource() == paintBtn) {
 				drawArea.paint();
-			} else if (e.getSource() == boldBtn) {
-				drawArea.bold();
-			}
+		} 
+//				else if (e.getSource() == boldBtn) {
+//				drawArea.bold();
+//			}
 			
 		}
 	};
