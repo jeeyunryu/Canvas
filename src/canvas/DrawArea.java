@@ -14,10 +14,9 @@ import javax.swing.JComponent;
 public class DrawArea extends JComponent{
 	
 	private Image image;
-	
 	private Graphics2D g2;
-	
 	private int currentX, currentY, oldX, oldY, latestX, latestY;
+	boolean up = true, line = false;
 	
 	public DrawArea() {
 		
@@ -30,10 +29,14 @@ public class DrawArea extends JComponent{
 			}
 			
 			public void mouseReleased(MouseEvent e) {
-				latestX = e.getX();
-				latestY = e.getY();
+				currentX = e.getX();
+				currentY = e.getY();
 				
-				//g2.drawLine(oldX, oldY, latestX, latestY);
+				if (!up) {
+					g2.drawLine(oldX, oldY, currentX, currentY);
+					repaint();
+				}
+				
 				
 			}
 			
@@ -45,12 +48,19 @@ public class DrawArea extends JComponent{
 				currentX = e.getX();
 				currentY = e.getY();
 				
-				if (g2 != null) {
+				if (g2 != null && up) {
 					g2.drawLine(oldX, oldY, currentX, currentY);
 					repaint();
 					oldX = currentX;
 					oldY = currentY;
 				}
+				
+//				if(!up && line) {
+//					//clear();
+//					g2.drawLine(oldX, oldY, currentX, currentY);
+//					repaint();
+//					
+//				}
 			}
 			
 			
@@ -66,7 +76,8 @@ public class DrawArea extends JComponent{
 			g2 = (Graphics2D) image.getGraphics();
 			
 			// 그래픽 노이즈 방지
-			g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+			g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, 
+					RenderingHints.VALUE_ANTIALIAS_ON);
 			
 			clear();
 		}
@@ -78,7 +89,7 @@ public class DrawArea extends JComponent{
 	public void clear() {
 		g2.setPaint(Color.white);
 		g2.fillRect(0, 0, getSize().width, getSize().height);
-		g2.setPaint(Color.magenta);
+		g2.setPaint(Color.black);
 		repaint();
 	}
 	
@@ -102,7 +113,22 @@ public class DrawArea extends JComponent{
 	}
 	
 	public void line() {
-		
+		line = true;
+		up = false;
+		//g2.drawLine(oldX, oldY, latestX, latestY);
 	}
+	
+	public void paint() {
+		up = true;
+		g2.setPaint(Color.black);
+	}
+	
+//	public void bold() {
+//		
+//		g2.getLineWidth();
+//		g2.setStroke()
+//		g2.setStroke(new BasicStroke(10));
+//	
+//	}
 
 }

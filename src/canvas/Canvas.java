@@ -18,7 +18,8 @@ import javax.swing.JPanel;
 
 public class Canvas {
 	
-	JButton clearBtn, blackBtn, blueBtn, redBtn, eraseBtn, lineBtn;
+	JButton clearBtn, blackBtn, blueBtn, redBtn, eraseBtn, lineBtn, paintBtn,
+		boldBtn;
 	
 	DrawArea drawArea;
 	
@@ -38,6 +39,10 @@ public class Canvas {
 				drawArea.erase();
 			} else if (e.getSource() == lineBtn) {
 				drawArea.line();
+			} else if (e.getSource() == paintBtn) {
+				drawArea.paint();
+			} else if (e.getSource() == boldBtn) {
+				drawArea.bold();
 			}
 			
 		}
@@ -71,13 +76,23 @@ public class Canvas {
 		eraseBtn.addActionListener(actionListener);
 		lineBtn = new JButton("Line");
 		lineBtn.addActionListener(actionListener);
+		paintBtn = new JButton("Paint");
+		paintBtn.addActionListener(actionListener);
+		boldBtn = new JButton("Bold");
+		boldBtn.addActionListener(actionListener);
 		
-		controls.add(clearBtn);
+		
+		controls.add(paintBtn);
+		controls.add(lineBtn);
+		controls.add(boldBtn);
 		controls.add(blackBtn);
 		controls.add(blueBtn);
 		controls.add(redBtn);
 		controls.add(eraseBtn);
-		controls.add(lineBtn);
+		
+		
+		controls.add(clearBtn);
+		
 		
 		content.add(controls, BorderLayout.NORTH);
 		
