@@ -8,6 +8,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 
 
 /**
@@ -19,7 +20,7 @@ import javax.swing.JPanel;
 public class Canvas {
 	
 	JButton clearBtn, blackBtn, blueBtn, redBtn, eraseBtn, lineBtn, paintBtn,
-		boldBtn;
+		boldBtn, textBtn;
 	
 	DrawArea drawArea;
 	
@@ -42,11 +43,19 @@ public class Canvas {
 			} else if (e.getSource() == paintBtn) {
 				drawArea.paint();
 		} 
-//				else if (e.getSource() == boldBtn) {
-//				drawArea.bold();
-//			}
+				else if (e.getSource() == boldBtn) {
+				drawArea.bold();
+			} else if (e.getSource() == textBtn) {
+				drawArea.putText();
+			}
 			
 		}
+
+//		private void putText() {
+//			JTextField txt = new JTextField();
+//			content.add(txt);
+//			
+//		}
 	};
 	
 	public static void main(String[] args) {
@@ -81,8 +90,10 @@ public class Canvas {
 		paintBtn.addActionListener(actionListener);
 		boldBtn = new JButton("Bold");
 		boldBtn.addActionListener(actionListener);
+		textBtn = new JButton("Text");
+		textBtn.addActionListener(actionListener);
 		
-		
+		controls.add(textBtn);
 		controls.add(paintBtn);
 		controls.add(lineBtn);
 		controls.add(boldBtn);
@@ -97,7 +108,7 @@ public class Canvas {
 		
 		content.add(controls, BorderLayout.NORTH);
 		
-		frame.setSize(600, 600);
+		frame.setSize(700, 700);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setVisible(true);
 	}
