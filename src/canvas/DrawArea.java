@@ -8,6 +8,8 @@ import java.awt.image.RenderedImage;
 import javax.swing.*;
 
 import java.io.*;
+import java.util.ArrayList;
+
 import javax.imageio.ImageIO;
 
 public class DrawArea extends JComponent {
@@ -17,6 +19,10 @@ public class DrawArea extends JComponent {
 //	static JRadioButton blackBtn = new JRadioButton();
 //	static JRadioButton blueBtn = new JRadioButton();
 //	
+	
+	ArrayList<Shape> shapeList = new ArrayList<>();
+	
+	
 	
 	
 	private Image image;
@@ -53,7 +59,7 @@ public class DrawArea extends JComponent {
 		
 		addMouseListener(new MouseAdapter() {
 			
-			//1번. 마우스 프레스
+			//1. press
 			public void mousePressed(MouseEvent e) {
 				
 				currentX = e.getX();
@@ -104,7 +110,7 @@ public class DrawArea extends JComponent {
 
 			}
 			
-			//2번. 마우스 릴리스
+			//2. release
 			public void mouseReleased(MouseEvent e) {
 				
 				currentX = e.getX();
@@ -121,11 +127,11 @@ public class DrawArea extends JComponent {
 					isFirstClk = true;
 				}
 				
-				// 선 (스케치) 그리기 
 				if (isLine ) {
 					
 					//g2.drawLine(initX, initY, currentX, currentY);
 					//repaint();
+					
 					isFirstClk = true;
 					
 				}
@@ -134,7 +140,11 @@ public class DrawArea extends JComponent {
 					
 					//g2.drawRect(initX, initY, currentX-initX, currentY-initY);
 					//repaint();
+//					shapeList.add((Shape) new Rectangle(initX, initY, currentX-initX, currentY-initY));
+//					image.drawAll(shapeList);
+					
 					isFirstClk = true;
+					
 					
 				} 
 				
@@ -152,7 +162,7 @@ public class DrawArea extends JComponent {
 		
 		addMouseMotionListener(new MouseMotionAdapter() {
 			
-			//3번. 마우스 이동
+			//3. move
 			public void mouseMoved(MouseEvent e) {
 			
 				myLabel.setText("(" + e.getX() + ", " + e.getY() + ")");
@@ -177,7 +187,7 @@ public class DrawArea extends JComponent {
 				
 			}
 			
-			//4번. 마우스 이동 + 마우스 프레스
+			//4. move & press
 			public void mouseDragged(MouseEvent e) {
 				
 				oldX = currentX;
@@ -252,7 +262,7 @@ public class DrawArea extends JComponent {
 			g2 = (Graphics2D) image.getGraphics();
 			transg2 = (Graphics2D) image.getGraphics();
 			
-			// 그래픽 노이즈 방지
+			// prevent graphical noise
 			g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, 
 					RenderingHints.VALUE_ANTIALIAS_ON);
 			
@@ -325,7 +335,7 @@ public class DrawArea extends JComponent {
 		
 	}
 	
-	// 펜 속성 초기화 (검정색, 기본굵기)
+	// initialize the property of the pen (color & width)
 	public void paint() {
 		
 		g2.setPaint(Color.black);
@@ -380,7 +390,7 @@ public class DrawArea extends JComponent {
 		
 	}
 	
-	// 마우스 프레스 + 마우스 이동 + 마우스 릴리스
+	// mouse press & move & release
 	public void drawRect() {
 		
 		g2.setStroke(new BasicStroke());
@@ -397,6 +407,7 @@ public class DrawArea extends JComponent {
 		
 	}
 	
+	//mouse press & move & release
 	public void drawCircle() {
 		
 		g2.setStroke(new BasicStroke());
@@ -413,8 +424,6 @@ public class DrawArea extends JComponent {
 	}
 	
 	public void highlight() {
-		
-		
 		
 		transg2.setStroke(new BasicStroke());
 		transg2.setPaint(Color.black);
