@@ -21,9 +21,16 @@ public class DrawArea extends JComponent {
 //	
 	
 	ArrayList<Shape> shapeList = new ArrayList<>();
+	ArrayList<Rectangle> rectList = new ArrayList<>();
+	ArrayList<Circle> circList = new ArrayList<>();
+	ArrayList<Line> lineList = new ArrayList<>();
 	
 	
+	//Canvas canvas = new Canvas();
 	
+	private Rectangle r1;
+	private Line l1;
+	private Circle c1;
 	
 	private Image image;
 	
@@ -51,8 +58,7 @@ public class DrawArea extends JComponent {
 	private boolean isPoly = false; 
 	private boolean isFirstClk = true;
 	private boolean isRect = false;
-	private boolean isCircle = false; 
-	private boolean isHLighter = false;
+	private boolean isCircle = false;
 	private boolean isDnd = false;
 	
 	public DrawArea() {
@@ -131,8 +137,11 @@ public class DrawArea extends JComponent {
 					
 					//g2.drawLine(initX, initY, currentX, currentY);
 					//repaint();
+					//shapelist
+					lineList.add(l1);
 					
 					isFirstClk = true;
+					
 					
 				}
 				
@@ -140,10 +149,14 @@ public class DrawArea extends JComponent {
 					
 					//g2.drawRect(initX, initY, currentX-initX, currentY-initY);
 					//repaint();
-//					shapeList.add((Shape) new Rectangle(initX, initY, currentX-initX, currentY-initY));
-//					image.drawAll(shapeList);
+					//shapeList.add((Shape) new Rectangle(initX, initY, currentX-initX, currentY-initY));
 					
+					//canvas.drawAll(shapeList);
+//					r1 = new Rectangle(initX, initY, currentX-initX, currentY-initY);
+//					r1.drawRectangle(g2);
+					rectList.add(r1);
 					isFirstClk = true;
+					
 					
 					
 				} 
@@ -152,7 +165,11 @@ public class DrawArea extends JComponent {
 					
 					//g2.drawOval(initX, initY, currentX-initX, currentY-initY);
 					//repaint();
+					//shapeList.add(new Ellipse2D(initX, initY, currentX-initX, currentX-initY));
+					circList.add(c1);
+					
 					isFirstClk = true;
+					//repaint();
 					
 				}
 			
@@ -207,44 +224,67 @@ public class DrawArea extends JComponent {
 				
 				else if (pendown) {
 					
-					if (isHLighter) {
-						
-						transg2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.1f));
-						transg2.drawLine(oldX, oldY, currentX, currentY);
-						repaint();
-						
-					}
-					
-					else {
-						
-						g2.drawLine(oldX, oldY, currentX, currentY);
-						repaint();
-						
-					}
-					
+					g2.drawLine(oldX, oldY, currentX, currentY);
+					repaint();
+
 				}
 				
 				else if (isLine) {
 					clear();
 					g2.setPaint(Color.black);
 					g2.setStroke(new BasicStroke());
-					g2.drawLine(initX, initY, currentX, currentY);
-
+					//g2.drawLine(initX, initY, currentX, currentY);
+					l1 = new Line(initX, initY, currentX, currentY);
+					l1.drawLine(g2);
+					for (Line l : lineList) {
+						l.drawLine(g2);
+					}
+					for (Rectangle r : rectList) {
+						r.drawRectangle(g2);
+					}
+					for (Circle c : circList) {
+						c.drawCircle(g2);
+					}
 					repaint();
+					
 			
 				}
 				
 				else if(isRect) {
+					
 					clear();
 					g2.setPaint(Color.black);
-					g2.drawRect(initX, initY, currentX-initX, currentY-initY);
+					r1 = new Rectangle(initX, initY, currentX-initX, currentY-initY);
+					r1.drawRectangle(g2);
+					for (Line l : lineList) {
+						l.drawLine(g2);
+					}
+					for (Rectangle r : rectList) {
+						r.drawRectangle(g2);
+					}
+					for (Circle c : circList) {
+						c.drawCircle(g2);
+					}
 					repaint();
+					
+					
 				}
 				
 				else if (isCircle) {
 					clear();
 					g2.setPaint(Color.black);
-					g2.drawOval(initX, initY, currentX-initX, currentY-initY);
+					c1 = new Circle(initX, initY, currentX-initX, currentY-initY);
+					c1.drawCircle(g2);
+					for (Line l : lineList) {
+						l.drawLine(g2);
+					}
+					for (Rectangle r : rectList) {
+						r.drawRectangle(g2);
+					}
+					for (Circle c : circList) {
+						c.drawCircle(g2);
+					}
+					
 					repaint();
 				}
 		
@@ -267,6 +307,12 @@ public class DrawArea extends JComponent {
 					RenderingHints.VALUE_ANTIALIAS_ON);
 			
 			clear();
+			
+			for (Rectangle r : rectList) {
+				r.drawRectangle(g2);
+			}
+			
+			repaint();
 			
 		}
 		
@@ -314,7 +360,6 @@ public class DrawArea extends JComponent {
 		isLine = false;
 		isPoly = false;
 		isFirstClk = false;
-		isHLighter = false;
 		isCircle = false;
 		
 	}
@@ -330,7 +375,6 @@ public class DrawArea extends JComponent {
 		isLine = true;
 		isPoly = false;
 		isFirstClk = true;
-		isHLighter = false;
 		isCircle = false;
 		
 	}
@@ -347,7 +391,6 @@ public class DrawArea extends JComponent {
 		isLine = false;
 		isPoly = false;
 		isFirstClk = false;
-		isHLighter = false;
 		isCircle = false;
 		
 	}
@@ -369,7 +412,6 @@ public class DrawArea extends JComponent {
 		isLine = false;
 		isPoly = false;
 		isFirstClk = false;
-		isHLighter = false;
 		isCircle = false;
 		
 	}
@@ -385,7 +427,6 @@ public class DrawArea extends JComponent {
 		isLine = false;
 		isPoly = true;
 		isFirstClk = true;
-		isHLighter = false;
 		isCircle = false;
 		
 	}
@@ -402,7 +443,6 @@ public class DrawArea extends JComponent {
 		isLine = false;
 		isPoly = false;
 		isFirstClk = true;
-		isHLighter = false;
 		isCircle = false;
 		
 	}
@@ -419,7 +459,6 @@ public class DrawArea extends JComponent {
 		isLine = false;
 		isPoly = false;
 		isFirstClk = true;
-		isHLighter = false;
 		isCircle = true;
 	}
 	
@@ -434,7 +473,6 @@ public class DrawArea extends JComponent {
 		isLine = false;
 		isPoly = false;
 		isFirstClk = false;
-		isHLighter = true;
 		isCircle = false;
 		
 	}
@@ -472,7 +510,6 @@ public class DrawArea extends JComponent {
 		isLine = false;
 		isPoly = false;
 		isFirstClk = true;
-		isHLighter = false;
 		isCircle = false;
 		
 	}

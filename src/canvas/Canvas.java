@@ -7,6 +7,8 @@ import javax.swing.*;
 
 public class Canvas {
 	
+	Font defaultFont;
+	
 	final int SIZE = 20;
 	
 	static Container content;
@@ -14,10 +16,9 @@ public class Canvas {
 	JButton clearBtn = new JButton("Clear");
 	JButton textBtn = new JButton("Text");
 	JButton saveBtn = new JButton("Save");
-	JButton dndBtn = new JButton("Drad & Drop");
+	JButton dndBtn = new JButton("Drag & Drop");
 	JButton eraseBtn = new JButton("Eraser");
 	JButton paintBtn = new JButton("Paint Brush");
-	JButton hlighterBtn = new JButton("Spray");
 	JButton boldBtn = new JButton("Bold");
 	JButton lineBtn = new JButton("Line");
 	JButton polyBtn = new JButton("Polygonal Chain");
@@ -83,10 +84,6 @@ public class Canvas {
 				
 				drawArea.drawCircle();
 				
-			} else if (e.getSource() == hlighterBtn) {
-				
-				drawArea.highlight();
-				
 			} else if (e.getSource() == saveBtn) {
 				
 				drawArea.save();
@@ -123,20 +120,21 @@ public class Canvas {
 		
 		content.add(controls, BorderLayout.NORTH);
 		
-		clearBtn.setFont(new Font("Arial", Font.PLAIN, SIZE));
-		boldBtn.setFont(new Font("Arial", Font.PLAIN, SIZE));
-		saveBtn.setFont(new Font("Arial", Font.PLAIN, SIZE));
-		dndBtn.setFont(new Font("Arial", Font.PLAIN, SIZE));
-		blackBtn.setFont(new Font("Arial", Font.PLAIN, SIZE));
-		blueBtn.setFont(new Font("Arial", Font.PLAIN, SIZE));
-		redBtn.setFont(new Font("Arial", Font.PLAIN, SIZE));
-		lineBtn.setFont(new Font("Arial", Font.PLAIN, SIZE));
-		polyBtn.setFont(new Font("Arial", Font.PLAIN, SIZE));
-		rectBtn.setFont(new Font("Arial", Font.PLAIN, SIZE));
-		circBtn.setFont(new Font("Arial", Font.PLAIN, SIZE));
-		eraseBtn.setFont(new Font("Arial", Font.PLAIN, SIZE));
-		hlighterBtn.setFont(new Font("Arial", Font.PLAIN, SIZE));
-		paintBtn.setFont(new Font("Arial", Font.PLAIN, SIZE));
+		defaultFont = new Font("Arial", Font.PLAIN, 20);
+		
+		clearBtn.setFont(defaultFont);
+		boldBtn.setFont(defaultFont);
+		saveBtn.setFont(defaultFont);
+		dndBtn.setFont(defaultFont);
+		blackBtn.setFont(defaultFont);
+		blueBtn.setFont(defaultFont);
+		redBtn.setFont(defaultFont);
+		lineBtn.setFont(defaultFont);
+		polyBtn.setFont(defaultFont);
+		rectBtn.setFont(defaultFont);
+		circBtn.setFont(defaultFont);
+		eraseBtn.setFont(defaultFont);
+		paintBtn.setFont(defaultFont);
 		
 		
 		boldBtn.addActionListener(actionListener);
@@ -164,10 +162,8 @@ public class Canvas {
 		
 		JPanel toolPanel = new JPanel(new GridLayout(3, 0));
 		eraseBtn.addActionListener(actionListener);
-		hlighterBtn.addActionListener(actionListener);
 		paintBtn.addActionListener(actionListener);
 		toolPanel.add(paintBtn);
-		toolPanel.add(hlighterBtn);
 		toolPanel.add(eraseBtn);
 		
 		
