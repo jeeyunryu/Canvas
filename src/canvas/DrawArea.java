@@ -13,20 +13,10 @@ import java.util.ArrayList;
 import javax.imageio.ImageIO;
 
 public class DrawArea extends JComponent {
-	
-//	ButtonGroup colorGroup = new ButtonGroup();
-//	static JRadioButton redBtn = new JRadioButton();
-//	static JRadioButton blackBtn = new JRadioButton();
-//	static JRadioButton blueBtn = new JRadioButton();
-//	
-	
-	ArrayList<Shape> shapeList = new ArrayList<>();
+
 	ArrayList<Rectangle> rectList = new ArrayList<>();
 	ArrayList<Circle> circList = new ArrayList<>();
 	ArrayList<Line> lineList = new ArrayList<>();
-	
-	
-	//Canvas canvas = new Canvas();
 	
 	private Rectangle r1;
 	private Line l1;
@@ -60,6 +50,27 @@ public class DrawArea extends JComponent {
 	private boolean isRect = false;
 	private boolean isCircle = false;
 	private boolean isDnd = false;
+	
+//	JTextField fileName;
+//	private String fName;
+//	JButton okBtn;
+//	
+//	ActionListener aListener = new ActionListener() {
+//		public void actionPerformed(ActionEvent e) {
+//			if (e.getSource() == okBtn) {
+//				fName = fileName.getText();
+//				try {
+//					
+//					ImageIO.write((RenderedImage) image, "png", new File("C:\\MyCanvas\\" + fName + ".png"));
+//					
+//				} catch (IOException evnt) {
+//					
+//					evnt.printStackTrace();
+//					
+//				}
+//			}
+//		}
+//	};
 	
 	public DrawArea() {
 		
@@ -134,42 +145,23 @@ public class DrawArea extends JComponent {
 				}
 				
 				if (isLine ) {
-					
-					//g2.drawLine(initX, initY, currentX, currentY);
-					//repaint();
-					//shapelist
+			
 					lineList.add(l1);
-					
 					isFirstClk = true;
-					
 					
 				}
 				
 				if (isRect) {
-					
-					//g2.drawRect(initX, initY, currentX-initX, currentY-initY);
-					//repaint();
-					//shapeList.add((Shape) new Rectangle(initX, initY, currentX-initX, currentY-initY));
-					
-					//canvas.drawAll(shapeList);
-//					r1 = new Rectangle(initX, initY, currentX-initX, currentY-initY);
-//					r1.drawRectangle(g2);
+		
 					rectList.add(r1);
 					isFirstClk = true;
-					
-					
 					
 				} 
 				
 				if(isCircle) {
 					
-					//g2.drawOval(initX, initY, currentX-initX, currentY-initY);
-					//repaint();
-					//shapeList.add(new Ellipse2D(initX, initY, currentX-initX, currentX-initY));
 					circList.add(c1);
-					
 					isFirstClk = true;
-					//repaint();
 					
 				}
 			
@@ -199,9 +191,9 @@ public class DrawArea extends JComponent {
 						setCursor(cursor);
 						
 					}
+					
 				}
-				
-				
+			
 			}
 			
 			//4. move & press
@@ -230,32 +222,47 @@ public class DrawArea extends JComponent {
 				}
 				
 				else if (isLine) {
+					
 					clear();
+					
 					g2.setPaint(Color.black);
 					g2.setStroke(new BasicStroke());
-					//g2.drawLine(initX, initY, currentX, currentY);
+					
 					l1 = new Line(initX, initY, currentX, currentY);
 					l1.drawLine(g2);
+					
 					for (Line l : lineList) {
+						
 						l.drawLine(g2);
+						
 					}
+					
 					for (Rectangle r : rectList) {
+						
 						r.drawRectangle(g2);
+						
 					}
+					
 					for (Circle c : circList) {
+						
 						c.drawCircle(g2);
+						
 					}
+					
 					repaint();
 					
-			
 				}
 				
 				else if(isRect) {
 					
 					clear();
+				
 					g2.setPaint(Color.black);
+					g2.setStroke(new BasicStroke());
+					
 					r1 = new Rectangle(initX, initY, currentX-initX, currentY-initY);
 					r1.drawRectangle(g2);
+					
 					for (Line l : lineList) {
 						l.drawLine(g2);
 					}
@@ -265,16 +272,22 @@ public class DrawArea extends JComponent {
 					for (Circle c : circList) {
 						c.drawCircle(g2);
 					}
+					
 					repaint();
 					
 					
 				}
 				
 				else if (isCircle) {
+					
 					clear();
+					
 					g2.setPaint(Color.black);
+					g2.setStroke(new BasicStroke());
+					
 					c1 = new Circle(initX, initY, currentX-initX, currentY-initY);
 					c1.drawCircle(g2);
+					
 					for (Line l : lineList) {
 						l.drawLine(g2);
 					}
@@ -303,14 +316,9 @@ public class DrawArea extends JComponent {
 			transg2 = (Graphics2D) image.getGraphics();
 			
 			// prevent graphical noise
-			g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, 
-					RenderingHints.VALUE_ANTIALIAS_ON);
+			g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 			
 			clear();
-			
-			for (Rectangle r : rectList) {
-				r.drawRectangle(g2);
-			}
 			
 			repaint();
 			
@@ -324,7 +332,6 @@ public class DrawArea extends JComponent {
 		
 		g2.setPaint(Color.white);
 		g2.fillRect(0, 0, getSize().width, getSize().height);
-		
 		repaint();
 		
 	}
@@ -479,15 +486,30 @@ public class DrawArea extends JComponent {
 	
 	public void save() {
 		
+//		JFrame saveFrm = new JFrame("Save to file");
+//		fileName = new JTextField(10);
+//		Container contentPane = saveFrm.getContentPane();
+//		contentPane.setLayout(new FlowLayout());
+//		
+//		okBtn = new JButton("OK");
+//		
+//		contentPane.add(fileName);
+//		contentPane.add(okBtn);
+//		saveFrm.setSize(200, 200);
+//		saveFrm.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//		saveFrm.setVisible(true);
+		
 		try {
 			
 			ImageIO.write((RenderedImage) image, "png", new File("C:\\MyCanvas\\newImage.png"));
 			
-		} catch (IOException e) {
+		} catch (IOException evnt) {
 			
-			e.printStackTrace();
+			evnt.printStackTrace();
 			
 		}
+		
+		
 		
 	}
 	
@@ -511,6 +533,15 @@ public class DrawArea extends JComponent {
 		isPoly = false;
 		isFirstClk = true;
 		isCircle = false;
+		
+	}
+	
+	public void clearAllShapes() {
+		
+		rectList.removeAll(rectList);
+		circList.removeAll(circList);
+		lineList.removeAll(lineList);
+		clear();
 		
 	}
 	

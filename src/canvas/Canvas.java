@@ -27,6 +27,8 @@ public class Canvas {
 	JButton redBtn = new JButton("Red");
 	JButton blueBtn = new JButton("Blue");
 	JButton blackBtn = new JButton("Black");
+	JButton clrShapesBtn = new JButton("Clear all Shapes");
+	
 	
 	
 
@@ -92,6 +94,8 @@ public class Canvas {
 				
 				drawArea.draganddrop();
 				
+			} else if (e.getSource() == clrShapesBtn) {
+				drawArea.clearAllShapes();
 			}
 			
 		}
@@ -140,7 +144,7 @@ public class Canvas {
 		boldBtn.addActionListener(actionListener);
 		saveBtn.addActionListener(actionListener);
 		dndBtn.addActionListener(actionListener);
-		clearBtn.addActionListener(actionListener);
+		
 		
 		JPanel colorPanel = new JPanel(new GridLayout(3, 0));
 		blackBtn.addActionListener(actionListener);
@@ -166,15 +170,23 @@ public class Canvas {
 		toolPanel.add(paintBtn);
 		toolPanel.add(eraseBtn);
 		
+		JPanel clrPanel = new JPanel(new GridLayout(2, 0));
+		clearBtn.addActionListener(actionListener);
+		clrShapesBtn.addActionListener(actionListener);
+		clrPanel.add(clearBtn);
+		clrPanel.add(clrShapesBtn);
+		
 		
 		controls.add(toolPanel);
 		controls.add(shapePanel);
+	
 		
 		controls.add(boldBtn);
 		controls.add(colorPanel);
 		controls.add(dndBtn);
 		controls.add(saveBtn);
-		controls.add(clearBtn);
+		controls.add(clrPanel);
+		
 		
 		DrawArea.myLabel = new JLabel();
 		content.add(DrawArea.myLabel, BorderLayout.SOUTH);
