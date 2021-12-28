@@ -25,7 +25,6 @@ public class DrawArea extends JComponent {
 	private Image image;
 	
 	private Graphics2D g2;
-	private Graphics2D transg2;
 	
 	private Ellipse2D ellipse;
 	
@@ -58,10 +57,10 @@ public class DrawArea extends JComponent {
 //	ActionListener aListener = new ActionListener() {
 //		public void actionPerformed(ActionEvent e) {
 //			if (e.getSource() == okBtn) {
-//				fName = fileName.getText();
+//				fName = "C:\\MyCanvas\\" + fileName.getText() + ".png";
 //				try {
 //					
-//					ImageIO.write((RenderedImage) image, "png", new File("C:\\MyCanvas\\" + fName + ".png"));
+//					ImageIO.write((RenderedImage) image, "png", new File(fName));
 //					
 //				} catch (IOException evnt) {
 //					
@@ -71,7 +70,7 @@ public class DrawArea extends JComponent {
 //			}
 //		}
 //	};
-	
+//	
 	public DrawArea() {
 		
 		addMouseListener(new MouseAdapter() {
@@ -199,6 +198,8 @@ public class DrawArea extends JComponent {
 			//4. move & press
 			public void mouseDragged(MouseEvent e) {
 				
+				myLabel.setText("(" + e.getX() + ", " + e.getY() + ")");
+				
 				oldX = currentX;
 				oldY = currentY;
 				currentX = e.getX();
@@ -313,7 +314,6 @@ public class DrawArea extends JComponent {
 			
 			image = createImage(getSize().width, getSize().height);
 			g2 = (Graphics2D) image.getGraphics();
-			transg2 = (Graphics2D) image.getGraphics();
 			
 			// prevent graphical noise
 			g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
@@ -339,20 +339,17 @@ public class DrawArea extends JComponent {
 	public void red() {
 		
 		g2.setPaint(Color.red);
-		transg2.setPaint(Color.red);
 	}
 	
 	public void black() {
 		
 		g2.setPaint(Color.black);
-		transg2.setPaint(Color.black);
 	
 	}
 	
 	public void blue() {
 		
 		g2.setPaint(Color.blue);
-		transg2.setPaint(Color.blue);
 		
 	}
 	
@@ -405,7 +402,6 @@ public class DrawArea extends JComponent {
 	public void bold() {
 		
 		g2.setStroke(new BasicStroke(10));
-		transg2.setStroke(new BasicStroke(10));
 		
 	}
 	
@@ -467,21 +463,6 @@ public class DrawArea extends JComponent {
 		isPoly = false;
 		isFirstClk = true;
 		isCircle = true;
-	}
-	
-	public void highlight() {
-		
-		transg2.setStroke(new BasicStroke());
-		transg2.setPaint(Color.black);
-		
-		isDnd = false;
-		isRect = false;
-		pendown = true; 
-		isLine = false;
-		isPoly = false;
-		isFirstClk = false;
-		isCircle = false;
-		
 	}
 	
 	public void save() {
